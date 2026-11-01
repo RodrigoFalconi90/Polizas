@@ -1,0 +1,17 @@
+# NetBeans settings specific to this computer
+/nbproject/private/
+
+# Generated Java build output
+/build/
+/dist/
+*.class
+
+# Local secrets
+/.env
+/.env.*
+!/.env.example
+
+# Operating system files
+Thumbs.db
+.DS_Store
+*.log

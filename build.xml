@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Polizas" default="jar" basedir=".">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="connector.jar" value="lib/mysql-connector-j.jar"/>
+
+    <path id="runtime.classpath">
+        <pathelement location="${classes.dir}"/>
+        <pathelement location="${connector.jar}"/>
+    </path>
+
+    <target name="prepare">
+        <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+        <available file="${connector.jar}" property="connector.exists"/>
+    </target>
+
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"
+               release="25" encoding="UTF-8"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}/Polizas.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Polizas.Inicio"/>
+                <attribute name="Class-Path" value="lib/mysql-connector-j.jar"/>
+            </manifest>
+        </jar>
+        <antcall target="copy-driver"/>
+    </target>
+
+    <target name="copy-driver" if="connector.exists">
+        <mkdir dir="${dist.dir}/lib"/>
+        <copy file="${connector.jar}" tofile="${dist.dir}/lib/mysql-connector-j.jar"/>
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="Polizas.Inicio" fork="true">
+            <classpath refid="runtime.classpath"/>
+        </java>
+    </target>
+
+    <!-- NetBeans uses run-single when Run File is selected on a Java class. -->
+    <target name="run-single" depends="compile">
+        <fail unless="run.class" message="NetBeans must provide the class to run."/>
+        <java classname="${run.class}" fork="true">
+            <classpath refid="runtime.classpath"/>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+
+    <!-- Target names used by the NetBeans Ant project actions. -->
+    <target name="Polizas-impl.clean" depends="clean"/>
+    <target name="Polizas-impl.compile" depends="compile"/>
+    <target name="Polizas-impl.jar" depends="jar"/>
+    <target name="Polizas-impl.run" depends="run"/>
+</project>

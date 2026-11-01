@@ -1,0 +1,26 @@
+{
+    "java.jdt.ls.java.home": "C:\\Program Files\\Apache NetBeans\\jdk",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-26",
+            "path": "C:\\Program Files\\Apache NetBeans\\jdk",
+            "default": true
+        }
+    ],
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "build-vscode",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "files.encoding": "utf8",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "files.exclude": {
+        "**/build": true,
+        "**/build-vscode": true,
+        "**/dist": true
+    }
+}
